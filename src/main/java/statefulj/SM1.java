@@ -106,8 +106,8 @@ public class SM1 implements Runnable{
 
         for (String tempEvents : eventsList) {
 
-//            Thread.sleep(500);
-//            System.out.println(tempEvents);
+            Thread.sleep(500);
+            System.out.println(tempEvents);
         }
 
 
@@ -128,8 +128,8 @@ public class SM1 implements Runnable{
 
         for (Action<Foo> tempActions : actionsList) {
 
-//            Thread.sleep(500);
-//            System.out.println(tempActions);
+            Thread.sleep(500);
+            System.out.println(tempActions);
         }
 
          /*
@@ -151,6 +151,7 @@ public class SM1 implements Runnable{
     }
 
 
+    @Override
     public void run() {
 
         MemoryPersisterImpl<Foo> persister = new MemoryPersisterImpl<Foo>(statesList, statesList.iterator().next());  // Set of States and Start State
@@ -167,6 +168,7 @@ public class SM1 implements Runnable{
             }
             try {
                 fsm.onEvent(foo, eventsList.get(i));  // stateA(EventA) -> stateB/actionA
+
             } catch (TooBusyException e) {
                 e.printStackTrace();
             }
@@ -191,6 +193,7 @@ public class SM1 implements Runnable{
         public void execute(T stateful, String event, Object... args) throws RetryException {
 
             System.out.println("Hello " + what);
+            System.out.println("State Changed Successfully of State Machine 1");
 
 
         }

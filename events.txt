@@ -1,1 +1,1 @@
-eventA eventB eventC eventD eventE eventF
+eventA eventB eventC eventD eventE

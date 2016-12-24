@@ -16,7 +16,7 @@ public class Simple {
     String eventE = null;
     public void scanFile(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the pattern you want to match...");
+        System.out.println("Enter the pattern you want to match....");
         input = scanner.nextLine();
 
         System.out.println("Input = " +input);
@@ -35,7 +35,6 @@ public class Simple {
 
             }
         }
-
     }
 
     public static void main(String[] args) throws IOException {
