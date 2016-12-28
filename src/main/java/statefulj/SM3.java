@@ -44,26 +44,25 @@ public class SM3 {
         System.out.println("Enter the pattern you want to match...");
         input = scanner.nextLine();
 
-        System.out.println("Input = " +input);
+        System.out.println("Input = " + input);
 
         Pattern patt = Pattern.compile(input);
         BufferedReader r = new BufferedReader(new FileReader("matching.txt"));
         String line;
-        while ((line = r.readLine()) != null){
+        while ((line = r.readLine()) != null) {
             Matcher m = patt.matcher(line);
-            while (m.find()){
+            while (m.find()) {
                 System.out.println("Match Done... Making Transistion to change states..");
                 Thread.sleep(1000);
                 stateA.addTransition(eventA, stateB, actionA);
-                stateB.addTransition(eventB,stateC,actionB);
+                stateB.addTransition(eventB, stateC, actionB);
                 List<State<Foo>> states = new LinkedList<State<Foo>>();
                 states.add(stateA);
                 states.add(stateB);
                 states.add(stateC);
 
 
-
-                MemoryPersisterImpl<Foo> persister = new MemoryPersisterImpl<Foo>(states,states.get(0));  // Start State
+                MemoryPersisterImpl<Foo> persister = new MemoryPersisterImpl<Foo>(states, states.get(0));  // Start State
 
                 FSM<Foo> fsm = new FSM<Foo>("Foo FSM", persister);
 
@@ -98,7 +97,7 @@ class SsaAction<T> implements Action<T> {
 
     public void execute(T stateful,
                         String event,
-                        Object ... args) throws RetryException {
+                        Object... args) throws RetryException {
         System.out.println("SSA " + what);
         System.out.println("State Changed Successfully of State Machine 3");
     }

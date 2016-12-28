@@ -13,15 +13,15 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 /**
- * Created by hslamba on 12/23/16.
+ * Created by hslamba on 12/26/16.
  */
-public class SM1 implements Runnable {
-
-    List<String> eventsList;
-    List<State<Foo>> statesList;
-    List<Action<Foo>> actionsList;
+public class SM4 implements Runnable {
+    List<String> eventsListnew;
+    List<State<Foo>> statesListnew;
+    List<Action<Foo>> actionsListnew;
     private Scanner readStateFile;
     private Scanner readEventFile;
     private Scanner readActionFile;
@@ -33,15 +33,13 @@ public class SM1 implements Runnable {
         readActionFile = new Scanner(new File("actions.txt"));
     }
 
-    public void readFile() throws InterruptedException, TooBusyException {
-
+    public void readFile() throws InterruptedException, TooBusyException, ExecutionException {
         // Events in StatefulJ are Strings.
         String eventA = readEventFile.next();
         String eventB = readEventFile.next();
         String eventC = readEventFile.next();
         String eventD = readEventFile.next();
         String eventE = readEventFile.next();
-
 
         //  A State defines the state value for an Entity and holds the mapping of all Transitions for that State.
 
@@ -64,57 +62,54 @@ public class SM1 implements Runnable {
         String stateF1 = readStateFile.next();
         final State<Foo> stateF = new StateImpl<Foo>(stateF1, true);
 
-
         //Actions
 
         String action1 = readActionFile.next();
-        Action<Foo> actionA = new HelloAction(action1);
+        Action<Foo> actionA = new HellAction(action1);
 
         String action2 = readActionFile.next();
-        Action<Foo> actionB = new HelloAction(action2);
+        Action<Foo> actionB = new HellAction(action2);
 
         String action3 = readActionFile.next();
-        Action<Foo> actionC = new HelloAction(action3);
+        Action<Foo> actionC = new HellAction(action3);
 
         String action4 = readActionFile.next();
-        Action<Foo> actionD = new HelloAction(action4);
+        Action<Foo> actionD = new HellAction(action4);
 
 
         //List for adding events
-        eventsList = new LinkedList<String>();
-        eventsList.add(eventA);
-        eventsList.add(eventB);
-        eventsList.add(eventC);
-        eventsList.add(eventD);
-        eventsList.add(eventE);
+        eventsListnew = new LinkedList<String>();
+        eventsListnew.add(eventA);
+        eventsListnew.add(eventB);
+        eventsListnew.add(eventC);
+        eventsListnew.add(eventD);
+        eventsListnew.add(eventE);
 
         //List for adding states
-        statesList = new LinkedList<State<Foo>>();
-        statesList.add(stateA);
-        statesList.add(stateB);
-        statesList.add(stateC);
-        statesList.add(stateD);
-        statesList.add(stateE);
-        statesList.add(stateF);
+        statesListnew = new LinkedList<State<Foo>>();
+        statesListnew.add(stateA);
+        statesListnew.add(stateB);
+        statesListnew.add(stateC);
+        statesListnew.add(stateD);
+        statesListnew.add(stateE);
+        statesListnew.add(stateF);
 
         //List for adding actions
-        actionsList = new LinkedList<Action<Foo>>();
-        actionsList.add(actionA);
-        actionsList.add(actionB);
-        actionsList.add(actionC);
-        actionsList.add(actionD);
+        actionsListnew = new LinkedList<Action<Foo>>();
+        actionsListnew.add(actionA);
+        actionsListnew.add(actionB);
+        actionsListnew.add(actionC);
+        actionsListnew.add(actionD);
 
-        for (String tempEvents : eventsList) {
+
+        for (String tempEvents : eventsListnew) {
 
             Thread.sleep(500);
             System.out.println(tempEvents);
         }
 
 
-         /*Deterministic Transition
-            A Deterministic Transition means that for a given State and Event, there is only a single Transition.
-         */
-        for (State<Foo> tempStates : statesList) {
+        for (State<Foo> tempStates : statesListnew) {
             Thread.sleep(500);
 
             tempStates.addTransition(eventA, stateB, actionA);
@@ -126,22 +121,13 @@ public class SM1 implements Runnable {
 
         }
 
-        for (Action<Foo> tempActions : actionsList) {
+        for (Action<Foo> tempActions : actionsListnew) {
 
             Thread.sleep(500);
             System.out.println(tempActions);
         }
 
-         /*
-             A Persister is a Class Responsible for persisting the State value for a Stateful Entity.
-             A Persister implements the Persister interface and must ensure that updates are atomic, isolated and thread-safe.
-             The Stateful FSM library comes with an in-memory Persister which maintains the State only on the in-memory Stateful Entity.
-             If you need to persist to a database, you will need to use one of the Database Persisters or integrate the StatefulJ Framework.
-        */
-
-
     }
-
 
     public void closeFile() {
         readStateFile.close();
@@ -149,24 +135,23 @@ public class SM1 implements Runnable {
         readActionFile.close();
     }
 
-
     @Override
     public void run() {
+        MemoryPersisterImpl<Foo> persister1 = new MemoryPersisterImpl<Foo>(statesListnew, statesListnew.iterator().next());  // Set of States and Start State
 
-        MemoryPersisterImpl<Foo> persister = new MemoryPersisterImpl<Foo>(statesList, statesList.iterator().next());  // Set of States and Start State
-
-        FSM<Foo> fsm = new FSM<Foo>("Foo FSM", persister);
+        FSM<Foo> fsm = new FSM<Foo>("Foo FSM", persister1);
 
         Foo foo = new Foo();
 
-        for (int i = 0; i < eventsList.size(); i++) {
+
+        for (int i = 0; i < eventsListnew.size(); i++) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             try {
-                fsm.onEvent(foo, eventsList.get(i));  // stateA(EventA) -> stateB/actionA
+                fsm.onEvent(foo, eventsListnew.get(i));  // stateA(EventA) -> stateB/actionA
 
             } catch (TooBusyException e) {
                 e.printStackTrace();
@@ -176,13 +161,14 @@ public class SM1 implements Runnable {
 
         }
     }
+
 }
 
 
-class HelloAction<T> implements Action<T> {
+class HellAction<T> implements Action<T> {
     String what;
 
-    public HelloAction(String what) {
+    public HellAction(String what) {
         this.what = what;
     }
 
@@ -191,14 +177,11 @@ class HelloAction<T> implements Action<T> {
 
     public void execute(T stateful, String event, Object... args) throws RetryException {
 
-        System.out.println("Hello " + what);
-        System.out.println("State Changed Successfully of State Machine 1");
+        System.out.println("Bye " + what);
+        System.out.println("State Changed Successfully of State Machine 4");
 
 
     }
 
 
 }
-
-
-

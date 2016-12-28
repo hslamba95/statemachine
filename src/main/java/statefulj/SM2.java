@@ -17,16 +17,15 @@ import java.util.Scanner;
 /**
  * Created by hslamba on 12/24/16.
  */
-public class SM2 implements Runnable{
+public class SM2 implements Runnable {
 
     List<String> eventsList1;
     List<State<Foo>> statesList1;
     List<Action<Foo>> actionsList1;
+    MemoryPersisterImpl<Foo> persister;
     private Scanner readStateFile;
     private Scanner readEventFile;
     private Scanner readActionFile;
-
-    MemoryPersisterImpl<Foo> persister;
 
     public void openFile() throws FileNotFoundException {
         readStateFile = new Scanner(new File("states.txt"));

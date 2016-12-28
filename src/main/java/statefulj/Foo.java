@@ -20,11 +20,11 @@ public class Foo {
     Note : There is no setter for state field as the value is set by StatefulJ.
      */
 
-    public void setBar(boolean bar) {
-        this.bar = bar;
-    }
-
     public boolean isBar() {
         return bar;
+    }
+
+    public void setBar(boolean bar) {
+        this.bar = bar;
     }
 }
