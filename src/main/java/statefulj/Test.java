@@ -13,7 +13,7 @@ public class Test {
 
         try {
             System.out.println("Started..");
-            System.out.println(future.get(3, TimeUnit.SECONDS));
+            System.out.println(future.get(10, TimeUnit.SECONDS));
             System.out.println("Finished!");
         } catch (TimeoutException e) {
             future.cancel(true);

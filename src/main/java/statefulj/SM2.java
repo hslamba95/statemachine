@@ -80,6 +80,8 @@ public class SM2 implements Runnable {
         Action<Foo> actionD = new MainAction(action4);
 
 
+
+
         //List for adding events
         eventsList1 = new LinkedList<String>();
         eventsList1.add(eventA);
@@ -169,6 +171,8 @@ class MainAction<T> implements Action<T> {
     public MainAction(String what) {
         this.what = what;
     }
+
+
 
 
     //Main Method
