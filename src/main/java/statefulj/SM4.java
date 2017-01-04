@@ -146,10 +146,12 @@ public class SM4 implements Runnable {
 
             foo.setBar(true);
 
+
         }
 
         System.out.println("Now i am on State B");
     }
+
 
 }
 

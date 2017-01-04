@@ -38,7 +38,7 @@ public class main {
 
 
 //        SM3 sm3 = new SM3();
-//        Thread.sleep(11000);
+////        Thread.sleep(11000);
 //        sm3.read();
 //        sm3.checkPattern();
 //
