@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<sifti>
+    <filename>
+
+    </filename>
+
+    <statemachine>
+        <name></name>
+        <event></event>
+        <action></action>
+
+    </statemachine>
+    <states>${states}</states>
+    <events>${events}</events>
+
+
+
+    <state1>${timer}</state1>
+    <value>$</value>
+
+</sifti>
+

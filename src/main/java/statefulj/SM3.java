@@ -20,10 +20,12 @@ import java.util.regex.Pattern;
 /**
  * Created by hslamba on 12/24/16.
  */
+
+
 public class SM3 {
 
     // Events
-//
+
     String eventA;
     String eventB;
     String input;
@@ -95,10 +97,12 @@ class SsaAction<T> implements Action<T> {
         this.what = what;
     }
 
-    public void execute(T stateful,
-                        String event,
-                        Object... args) throws RetryException {
+    public void execute(T stateful, String event, Object... args) throws RetryException {
         System.out.println("SSA " + what);
         System.out.println("State Changed Successfully of State Machine 3");
     }
 }
+
+
+// Maintain the list of state machine
+//ITS product of Splunk

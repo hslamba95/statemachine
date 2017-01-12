@@ -43,6 +43,7 @@ public class SM4 implements Runnable {
         String eventD = readEventFile.next();
         String eventE = readEventFile.next();
 
+
         //  A State defines the state value for an Entity and holds the mapping of all Transitions for that State.
 
 
@@ -106,6 +107,11 @@ public class SM4 implements Runnable {
 
         stateA.addTransition(eventA,stateB,actionA);
 
+
+
+        stateB.addTransition(eventB,stateC);
+        stateC.addTransition(eventA,stateD,actionC);
+
     }
 
     public void closeFile() {
@@ -120,6 +126,7 @@ public class SM4 implements Runnable {
             System.out.println("Starting the transition in some time.....");
             executor.awaitTermination(5,TimeUnit.SECONDS);
         } catch (InterruptedException e) {
+
             e.printStackTrace();
         }
         MemoryPersisterImpl<Foo> persister1 = new MemoryPersisterImpl<Foo>(statesListnew,statesListnew.get(0));  // Set of States and Start State
